@@ -33,3 +33,33 @@ export interface PhaseInfo {
   avoided: string[];
   color: string;
 }
+
+// AI Recipe Assistant types
+export type AIProvider = 'claude' | 'gemini';
+
+export interface AIRecipeRequest {
+  ingredients: string[];
+  phase: PhaseNumber;
+  provider: AIProvider;
+  preferences?: string;
+}
+
+export interface AIGeneratedRecipe {
+  title: string;
+  description: string;
+  phase: PhaseNumber[];
+  category: Category;
+  prepTime: number;
+  cookTime: number;
+  servings: number;
+  ingredients: Ingredient[];
+  steps: string[];
+  tips?: string;
+  tags: string[];
+}
+
+export interface AIRecipeResponse {
+  recipe: AIGeneratedRecipe;
+  provider: AIProvider;
+  disclaimer: string;
+}

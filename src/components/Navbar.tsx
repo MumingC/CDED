@@ -9,6 +9,7 @@ export default function Navbar() {
   const links = [
     { href: '/', label: '首頁' },
     { href: '/recipes', label: '食譜' },
+    { href: '/ai-assistant', label: 'AI 小幫手' },
     { href: '/phases', label: '階段說明' },
     { href: '/about', label: '關於' },
   ];
