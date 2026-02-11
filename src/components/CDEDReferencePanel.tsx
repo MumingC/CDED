@@ -105,6 +105,12 @@ export default function CDEDReferencePanel({ recipePhases }: CDEDReferencePanelP
         <div className="overflow-y-auto h-[calc(100vh-120px)] p-4 space-y-5">
           {phaseData && (
             <>
+              {/* Key Principle */}
+              <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm">
+                <div className="font-bold text-amber-800 mb-1">重要原則</div>
+                <div className="text-amber-700">{phaseData.keyPrinciple}</div>
+              </div>
+
               {/* PEN info */}
               <div className="p-3 bg-purple-50 border border-purple-200 rounded-lg text-sm">
                 <div className="font-medium text-purple-800 mb-1">腸內營養配方 (PEN)</div>
@@ -135,7 +141,7 @@ export default function CDEDReferencePanel({ recipePhases }: CDEDReferencePanelP
               <section>
                 <h3 className="text-sm font-bold text-green-700 mb-2 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-green-500" />
-                  允許食用
+                  每日允許食用
                 </h3>
                 <div className="space-y-3">
                   {phaseData.allowed.map((cat, ci) => (
@@ -160,11 +166,40 @@ export default function CDEDReferencePanel({ recipePhases }: CDEDReferencePanelP
                 </div>
               </section>
 
+              {/* Weekly allowed foods */}
+              {phaseData.weeklyAllowed.length > 0 && (
+                <section>
+                  <h3 className="text-sm font-bold text-blue-700 mb-2 flex items-center gap-1.5">
+                    <span className="w-2 h-2 rounded-full bg-blue-500" />
+                    每週允許食用
+                  </h3>
+                  <div className="space-y-3">
+                    {phaseData.weeklyAllowed.map((cat, ci) => (
+                      <div key={ci}>
+                        <div className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">
+                          {cat.category}
+                        </div>
+                        <ul className="space-y-1">
+                          {cat.items.map((item, ii) => (
+                            <li key={ii} className="text-sm flex gap-2 bg-blue-50 rounded px-2.5 py-1.5">
+                              <span className="text-blue-800">{item.name}</span>
+                              {item.note && (
+                                <span className="text-blue-500 text-xs mt-0.5">{item.note}</span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
               {/* Disallowed foods */}
               <section>
                 <h3 className="text-sm font-bold text-gray-700 mb-2 flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-gray-500" />
-                  禁止食用
+                  禁止食用（部分列表）
                 </h3>
                 <div className="space-y-3">
                   {phaseData.disallowed.map((cat, ci) => (
@@ -187,11 +222,15 @@ export default function CDEDReferencePanel({ recipePhases }: CDEDReferencePanelP
                 </div>
               </section>
 
-              {/* Source */}
-              <div className="text-xs text-gray-400 border-t border-gray-100 pt-3">
-                資料來源：Levine et al., <em>Gastroenterology</em> 2019;
-                Children&apos;s Wisconsin CDED Teaching Sheets.
-                本資料僅供參考，請務必遵照您的醫療團隊指示。
+              {/* Sources */}
+              <div className="text-xs text-gray-400 border-t border-gray-100 pt-3 space-y-1">
+                <div className="font-medium text-gray-500">資料來源：</div>
+                {phaseData.sources.map((src, i) => (
+                  <div key={i}>• {src}</div>
+                ))}
+                <div className="mt-2">
+                  本資料僅供參考，請務必遵照您的醫療團隊與 CDED 營養師指示。
+                </div>
               </div>
             </>
           )}

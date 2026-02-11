@@ -14,8 +14,11 @@ export interface PhaseReference {
   phase: PhaseNumber;
   title: string;
   pen: string; // Partial Enteral Nutrition requirement
+  keyPrinciple: string;
+  sources: string[];
   mandatory: FoodItem[];
   allowed: FoodCategory[];
+  weeklyAllowed: FoodCategory[];
   disallowed: FoodCategory[];
 }
 
@@ -24,74 +27,82 @@ export const cdedReference: PhaseReference[] = [
     phase: 1,
     title: '第一階段 — 排除期（第 1-6 週）',
     pen: '50% 每日熱量來自腸內營養配方（如 Modulen IBD）',
+    keyPrinciple: '不在允許清單上的食物，一律視為禁止。不可替代。',
+    sources: [
+      'Levine et al., Gastroenterology 2019, Supplementary Table 3',
+      'Modulife Phase 1 Guide (Nestle Health Science)',
+    ],
     mandatory: [
-      { name: '雞胸肉', note: '每日至少 150-200g，去皮新鮮' },
+      { name: '新鮮雞胸肉', note: '每日 150-200g（Modulife: 5-7 oz），僅限胸肉' },
       { name: '雞蛋', note: '每日 2 顆' },
       { name: '香蕉', note: '每日 2 根' },
-      { name: '蘋果', note: '每日 1 顆，去皮煮熟' },
-      { name: '馬鈴薯', note: '每日 2 顆，煮熟放涼再吃（抗性澱粉）' },
-      { name: '新鮮瘦魚肉', note: '每週 1 次，約 140g' },
+      { name: '新鮮蘋果', note: '每日 1 顆（Modulife: 去皮）' },
+      { name: '馬鈴薯', note: '每日 2 顆，去皮煮熟後放涼再吃，不可同餐吃兩顆' },
     ],
     allowed: [
       {
         category: '水果',
         items: [
-          { name: '酪梨', note: '每日 1 顆（每餐半顆）' },
-          { name: '新鮮草莓' },
-          { name: '哈密瓜', note: '每日 1 片' },
-          { name: '檸檬汁', note: '調味用，不限量' },
-          { name: '鮮榨柳橙汁', note: '每日 1 杯' },
+          { name: '新鮮草莓', note: '論文未標數量；Modulife: 5 顆' },
+          { name: '哈密瓜或蜜瓜', note: '每日 1 片' },
+          { name: '酪梨', note: '每日 2 半（= 1 顆）' },
+          { name: '檸檬、萊姆' },
         ],
       },
       {
         category: '蔬菜',
         items: [
-          { name: '番茄', note: '每日 2 顆（或 6 顆小番茄）' },
-          { name: '小黃瓜', note: '每日 2 根，去皮' },
+          { name: '番茄', note: '每日 2 顆或 6 顆小番茄（烹飪用可多加）' },
+          { name: '小黃瓜', note: '每日 2 根（中型），去皮' },
           { name: '胡蘿蔔', note: '每日 1 根' },
-          { name: '菠菜', note: '每日 1 杯（生）' },
+          { name: '菠菜', note: '每日 1 杯生葉' },
           { name: '萵苣', note: '每日 3 片' },
           { name: '洋蔥', note: '調味用' },
-          { name: '蒜', note: '調味用' },
         ],
       },
       {
         category: '穀物澱粉',
         items: [
-          { name: '白米飯', note: '不限量' },
-          { name: '米粉 / 米線', note: '不限量，無添加物' },
-          { name: '米製麵包', note: '100% 米製' },
-          { name: '米粉（烘焙用）' },
+          { name: '白米飯、米粉', note: '無限量' },
+          { name: '米製粉（Rice flour）', note: '烘焙用' },
         ],
       },
       {
         category: '油脂',
         items: [
-          { name: '橄欖油', note: '烹飪與調味' },
-          { name: '芥花油', note: '烹飪用' },
+          { name: '橄欖油' },
+          { name: '芥花油' },
         ],
       },
       {
         category: '調味料與香草',
         items: [
-          { name: '鹽、胡椒' },
-          { name: '薑、薑黃' },
-          { name: '肉桂、孜然、紅椒粉' },
-          { name: '新鮮香草', note: '薄荷、香菜、羅勒、迷迭香、百里香等' },
+          { name: '鹽、胡椒、紅椒粉、肉桂、孜然、薑黃', note: '須為純香料' },
+          { name: '新鮮香草', note: '羅勒、香菜、迷迭香、百里香、薄荷、蒔蘿' },
+          { name: '新鮮薑、蒜' },
         ],
       },
       {
         category: '甜味劑',
         items: [
           { name: '蜂蜜', note: '每日 3 大匙內' },
-          { name: '糖', note: '每日 3 小匙內' },
+          { name: '糖', note: '論文: 每日 4 小匙；Modulife: 每日 3 小匙' },
         ],
       },
       {
         category: '飲品',
         items: [
-          { name: '水（含氣泡水）', note: '不限量' },
-          { name: '花草茶（洋甘菊等）' },
+          { name: '水、氣泡水' },
+          { name: '花草茶', note: '如洋甘菊茶' },
+          { name: '鮮榨柳橙汁', note: '每日 1 杯，必須鮮榨（不可用瓶裝或盒裝）' },
+        ],
+      },
+    ],
+    weeklyAllowed: [
+      {
+        category: '每週一次',
+        items: [
+          { name: '新鮮瘦白魚肉', note: '不可油炸，需營養師指導（Modulife: 最多 5 oz）' },
         ],
       },
     ],
@@ -99,79 +110,51 @@ export const cdedReference: PhaseReference[] = [
       {
         category: '蛋白質',
         items: [
-          { name: '紅肉（牛、羊、豬）' },
-          { name: '加工肉類（熱狗、香腸、培根）' },
-          { name: '火雞肉' },
-          { name: '冷凍或預包裝魚/海鮮' },
-          { name: '豆腐與大豆製品' },
+          { name: '雞胸肉以外的雞肉部位' },
+          { name: '其他動物蛋白或大豆蛋白' },
         ],
       },
       {
-        category: '乳製品（全部禁止）',
+        category: '乳製品與脂肪',
         items: [
-          { name: '牛奶（含非乳替代品）' },
-          { name: '優格、起司' },
-          { name: '奶油、鮮奶油' },
-          { name: '冰淇淋' },
+          { name: '乳製品（全部）' },
+          { name: '動物性脂肪' },
         ],
       },
       {
         category: '穀物',
         items: [
-          { name: '小麥製品（麵包、麵條、餅乾、麥片）' },
-          { name: '燕麥' },
-          { name: '玉米及其製品' },
-          { name: '酵母及酵母製品' },
-          { name: '除米粉以外的所有麵粉' },
+          { name: '小麥製品' },
         ],
       },
       {
-        category: '豆類、堅果、種子',
+        category: '食品添加物',
         items: [
-          { name: '所有豆類（扁豆、鷹嘴豆等）' },
-          { name: '所有堅果' },
-          { name: '所有種子' },
-          { name: '芝麻醬' },
+          { name: '乳化劑' },
+          { name: '人工甜味劑' },
+          { name: '卡拉膠' },
+          { name: '麥芽糊精（及蔗糖素）' },
+          { name: '含亞硫酸鹽食品' },
+          { name: '三仙膠（Xanthan gum）' },
         ],
       },
       {
         category: '加工食品',
         items: [
-          { name: '罐頭食品' },
-          { name: '冷凍食品' },
-          { name: '包裝零食' },
-          { name: '即食食品' },
-          { name: '醬料、沙拉醬' },
+          { name: '包裝、罐頭、冷凍預煮食品、麵團、烘焙品' },
+          { name: '冷凍或罐頭蔬果' },
+          { name: '大豆或無麩質替代品' },
+          { name: '現成醬料、糖漿、抹醬、沙拉醬、人造奶油、奶油' },
+          { name: '醋、醬油、番茄醬、美乃滋' },
         ],
       },
       {
-        category: '添加物',
+        category: '飲品與其他',
         items: [
-          { name: '乳化劑' },
-          { name: '卡拉膠' },
-          { name: '亞硫酸鹽' },
-          { name: '人工甜味劑' },
-          { name: '防腐劑' },
-          { name: '複方調味粉（常含添加物）' },
-        ],
-      },
-      {
-        category: '飲品',
-        items: [
+          { name: '酒精、汽水、市售果汁' },
           { name: '咖啡' },
-          { name: '含咖啡因的茶' },
-          { name: '酒精' },
-          { name: '汽水、碳酸飲料' },
-          { name: '市售果汁（鮮榨柳橙汁除外）' },
-        ],
-      },
-      {
-        category: '其他',
-        items: [
-          { name: '糖果、巧克力、蛋糕' },
-          { name: '口香糖' },
           { name: '油炸食物' },
-          { name: '外食（不可在餐廳用餐）' },
+          { name: '口服鐵劑' },
         ],
       },
     ],
@@ -180,13 +163,16 @@ export const cdedReference: PhaseReference[] = [
     phase: 2,
     title: '第二階段 — 漸進期（第 7-12 週）',
     pen: '25% 每日熱量來自腸內營養配方',
+    keyPrinciple: '蔬果不可一次大量食用，需分散於各餐（早餐、午餐、晚餐、點心），以防有狹窄時造成阻塞。',
+    sources: [
+      'Levine et al., Gastroenterology 2019, Supplementary Table 3',
+    ],
     mandatory: [
-      { name: '雞胸肉', note: '每日至少 150-200g' },
+      { name: '新鮮雞胸肉', note: '每日 150-200g' },
       { name: '雞蛋', note: '每日 2 顆' },
       { name: '香蕉', note: '每日 2 根' },
-      { name: '蘋果', note: '每日 1 顆，去皮煮熟' },
-      { name: '馬鈴薯', note: '每日 2 顆，煮熟放涼' },
-      { name: '新鮮瘦魚肉', note: '每週 1 次' },
+      { name: '新鮮蘋果', note: '每日 1 顆' },
+      { name: '馬鈴薯', note: '每日 2 顆（或 ½ 地瓜 + 1 馬鈴薯），煮熟放涼' },
     ],
     allowed: [
       {
@@ -194,88 +180,71 @@ export const cdedReference: PhaseReference[] = [
         items: [],
       },
       {
-        category: '新增蔬菜（第 7-9 週）',
+        category: '每日新增',
         items: [
-          { name: '地瓜、山藥' },
-          { name: '櫛瓜' },
-          { name: '蘑菇' },
-          { name: '花椰菜、白花菜' },
-          { name: '紅甜椒' },
+          { name: '全穀麵包', note: '每日 1 片' },
+          { name: '藜麥' },
+          { name: '煮熟扁豆或豌豆', note: '每日 3 大匙' },
+          { name: '杏仁或核桃', note: '6 顆（未加工）' },
+          { name: '蘇打粉', note: '用於烘焙' },
         ],
       },
       {
-        category: '新增蔬菜（第 10-12 週）',
+        category: '第 7 週起新增蔬菜',
         items: [
-          { name: '幾乎所有蔬菜', note: '除羽衣甘藍、韭蔥、蘆筍、朝鮮薊' },
+          { name: '花椰菜、白花菜', note: '每日 2 朵' },
+          { name: '新鮮蘑菇', note: '每日 4 朵（不可用罐頭）' },
+          { name: '紅甜椒', note: '½ 顆' },
+          { name: '櫛瓜或南瓜片', note: '1 根' },
         ],
       },
       {
-        category: '新增水果（第 7-10 週）',
+        category: '第 7 週起新增水果',
         items: [
-          { name: '梨子、桃子' },
-          { name: '奇異果' },
-          { name: '藍莓' },
+          { name: '梨子 或 奇異果 或 熟油桃', note: '擇一' },
         ],
       },
       {
-        category: '新增水果（第 11-12 週）',
+        category: '第 10 週起新增',
         items: [
-          { name: '芒果、鳳梨' },
-          { name: '柳橙（整顆）' },
+          { name: '大部分蔬菜', note: '限量，需營養師指導' },
+          { name: '大部分水果', note: '限量，需營養師指導' },
+          { name: '藜麥' },
+          { name: '煮熟扁豆或豌豆', note: '增至每日 3-4 大匙' },
         ],
       },
+    ],
+    weeklyAllowed: [
       {
-        category: '新增豆類（限量）',
+        category: '每週一次',
         items: [
-          { name: '扁豆', note: '乾燥，1/2 杯' },
-          { name: '鷹嘴豆', note: '乾燥，1/2 杯' },
-          { name: '豌豆', note: '限量' },
-        ],
-      },
-      {
-        category: '新增堅果',
-        items: [
-          { name: '杏仁', note: '每日 6-8 顆，未加工' },
-          { name: '核桃', note: '每日 6-8 顆，未加工' },
-        ],
-      },
-      {
-        category: '其他新增',
-        items: [
-          { name: '純芝麻醬', note: '無防腐劑、乳化劑、亞硫酸鹽' },
-          { name: '瘦牛排', note: '每週 1 次，最多 170g' },
-          { name: '自製蘇打粉麵包', note: '每日 1 片，無酵母' },
-          { name: '油炸食物', note: '每週限 1 次' },
+          { name: '新鮮瘦白魚肉', note: '不可油炸，需營養師指導' },
+          { name: '沙朗或菲力牛排', note: '最多 200g' },
+          { name: '全穀麵包（額外）', note: '最多 1 片' },
+          { name: '鮪魚罐頭', note: '橄欖油或芥花油漬，瀝乾' },
+          { name: '燕麥', note: '½ 杯' },
         ],
       },
     ],
     disallowed: [
       {
-        category: '仍然禁止',
+        category: '仍然禁止（除上方允許項目外）',
         items: [
-          { name: '所有乳製品（仍全面禁止）' },
-          { name: '小麥與麩質製品（酵母麵包仍禁止）' },
-          { name: '燕麥、玉米' },
-          { name: '種子類' },
-          { name: '加工肉類' },
-          { name: '罐頭、冷凍與包裝食品' },
-          { name: '乳化劑、人工甜味劑等添加物' },
-          { name: '咖啡、酒精' },
-        ],
-      },
-      {
-        category: '特定蔬菜',
-        items: [
-          { name: '羽衣甘藍' },
-          { name: '韭蔥' },
-          { name: '蘆筍' },
-          { name: '朝鮮薊' },
-        ],
-      },
-      {
-        category: '其他',
-        items: [
-          { name: '外食（仍不可在餐廳用餐）' },
+          { name: '乳製品（全部）' },
+          { name: '動物性脂肪' },
+          { name: '小麥製品' },
+          { name: '乳化劑' },
+          { name: '人工甜味劑' },
+          { name: '雞胸肉以外的雞肉部位' },
+          { name: '其他動物蛋白或大豆蛋白' },
+          { name: '卡拉膠、麥芽糊精、三仙膠' },
+          { name: '含亞硫酸鹽食品' },
+          { name: '包裝、罐頭、冷凍預煮食品' },
+          { name: '大豆或無麩質替代品' },
+          { name: '現成醬料、醋、醬油、番茄醬、美乃滋' },
+          { name: '酒精、汽水、市售果汁' },
+          { name: '咖啡' },
+          { name: '口服鐵劑' },
         ],
       },
     ],
@@ -284,6 +253,11 @@ export const cdedReference: PhaseReference[] = [
     phase: 3,
     title: '第三階段 — 維持期（第 13 週起）',
     pen: '25% 或更低（個人化調整），或不需要',
+    keyPrinciple: '注意：第三階段細節不在原始 Supplementary Table 3 中，以下資料來自其他公開臨床指引。',
+    sources: [
+      'Children\'s Wisconsin CDED Maintenance Phase Teaching Sheet',
+      'PMC Comprehensive Review (2024)',
+    ],
     mandatory: [],
     allowed: [
       {
@@ -307,7 +281,7 @@ export const cdedReference: PhaseReference[] = [
       {
         category: '穀物',
         items: [
-          { name: '全穀麵包', note: '每日 2 片，自製為佳' },
+          { name: '全穀麵包', note: '每日 2 片' },
           { name: '煮熟義大利麵', note: '每週 2 次，每次 1 杯，可替代麵包' },
         ],
       },
@@ -333,6 +307,7 @@ export const cdedReference: PhaseReference[] = [
         ],
       },
     ],
+    weeklyAllowed: [],
     disallowed: [
       {
         category: '永遠禁止（即使自由日也不可）',
