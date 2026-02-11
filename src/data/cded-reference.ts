@@ -37,7 +37,7 @@ export const cdedReference: PhaseReference[] = [
         category: '水果',
         items: [
           { name: '酪梨', note: '每日 1 顆（每餐半顆）' },
-          { name: '草莓', note: '每日 5 顆' },
+          { name: '新鮮草莓' },
           { name: '哈密瓜', note: '每日 1 片' },
           { name: '檸檬汁', note: '調味用，不限量' },
           { name: '鮮榨柳橙汁', note: '每日 1 杯' },
