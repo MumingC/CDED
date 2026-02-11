@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getRecipeBySlug, getAllSlugs } from '@/lib/recipes';
 import PhaseTag from '@/components/PhaseTag';
+import CDEDReferencePanel from '@/components/CDEDReferencePanel';
 import type { Metadata } from 'next';
 
 export function generateStaticParams() {
@@ -110,6 +111,9 @@ export default function RecipeDetailPage({ params }: { params: { slug: string } 
           ))}
         </div>
       )}
+
+      {/* CDED Reference Side Panel */}
+      <CDEDReferencePanel recipePhases={recipe.phase} />
     </div>
   );
 }
